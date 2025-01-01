@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #0077cc;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+    <h1>StramBeLL Gururla Sunar !</h1>
+    <p>Tüm İçerik ve Yenilikler İçin Hazır Olun !</p>
+    <button onclick="sendData()">Hazır Olun</button>
+
+    <script>
+        function sendData() {
+            // Telegram Web App API ile kullanıcı bilgilerini bot'a gönder
+            Telegram.WebApp.sendData("Mini App'ten selamlar! 🚀");
+        }
+
+        // Telegram Web App'in hazır olduğunu kontrol et
+        Telegram.WebApp.ready();
+    </script>
+</body>
+</html>
