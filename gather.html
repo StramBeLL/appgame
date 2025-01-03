@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gathering System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        #inventory {
+            margin-top: 20px;
+        }
+        #inventory-list {
+            list-style: none;
+            padding: 0;
+        }
+        #inventory-list li {
+            background: #ddd;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gathering System</h1>
+    <p>Click the button to gather resources!</p>
+    <button id="gather-button">Gather Resource</button>
+    <div id="inventory">
+        <h2>Inventory</h2>
+        <ul id="inventory-list">
+            <li>Wood: 0</li>
+            <li>Stone: 0</li>
+            <li>Iron: 0</li>
+            <li>Herbs: 0</li>
+        </ul>
+    </div>
+
+    <script>
+        const resources = {
+            Wood: 0,
+            Stone: 0,
+            Iron: 0,
+            Herbs: 0
+        };
+
+        document.getElementById('gather-button').addEventListener('click', () => {
+            const resourceNames = Object.keys(resources);
+            const randomResource = resourceNames[Math.floor(Math.random() * resourceNames.length)];
+            resources[randomResource]++;
+            updateInventory();
+        });
+
+        function updateInventory() {
+            const inventoryList = document.getElementById('inventory-list');
+            inventoryList.innerHTML = '';
+            for (const [key, value] of Object.entries(resources)) {
+                inventoryList.innerHTML += `<li>${key}: ${value}</li>`;
+            }
+        }
+    </script>
+</body>
+</html>
