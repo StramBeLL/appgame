@@ -90,24 +90,26 @@
         });
 
         function update() {
-            items.forEach(item => {
-                if (!item.collected &&
-                    player.x < item.x + item.size &&
-                    player.x + player.size > item.x &&
-                    player.y < item.y + item.size &&
-                    player.y + player.size > item.y) {
-                    item.collected = true;
-                    resources[item.type]++;
-                    document.getElementById(item.type.toLowerCase()).textContent = resources[item.type];
-                }
-                            / Eğer tüm malzemeler toplandıysa ana ekrana dön
-                if (items.every(item => item.collected)) {
-                    setTimeout(() => {
-                    alert("Congratulations! You've collected all the resources!");
-                    window.location.href = "index.html"; // Ana ekrana yönlendirme
-                    }, 500); // Küçük bir gecikme ekledim daha iyi kullanıcı deneyimi için
-                 
+    items.forEach(item => {
+        if (!item.collected &&
+            player.x < item.x + item.size &&
+            player.x + player.size > item.x &&
+            player.y < item.y + item.size &&
+            player.y + player.size > item.y) {
+            item.collected = true;
+            resources[item.type]++;
+            document.getElementById(item.type.toLowerCase()).textContent = resources[item.type];
         }
+    });
+
+    // Eğer tüm malzemeler toplandıysa ana ekrana dön
+    if (items.every(item => item.collected)) {
+        setTimeout(() => {
+            alert("Congratulations! You've collected all the resources!");
+            window.location.href = "index.html"; // Ana ekrana yönlendirme
+        }, 500); // Küçük bir gecikme ekledim daha iyi kullanıcı deneyimi için
+    }
+}
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
