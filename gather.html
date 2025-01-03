@@ -100,17 +100,13 @@
                     resources[item.type]++;
                     document.getElementById(item.type.toLowerCase()).textContent = resources[item.type];
                 }
-                 if (items.every(item => item.collected)) {
-        setTimeout(() => {
-            alert("Congratulations! You've collected all the resources!");
-            window.location.href = "index.html"; // Ana ekrana yönlendirme
-        }, 500); // Küçük bir gecikme ekledim daha iyi kullanıcı deneyimi için
-            });
-
-            if (items.every(item => item.collected)) {
-                alert("Congratulations! You've collected all the resources!");
-                window.location.href = "index.html"; // Return to main screen
-            }
+                            / Eğer tüm malzemeler toplandıysa ana ekrana dön
+                if (items.every(item => item.collected)) {
+                    setTimeout(() => {
+                    alert("Congratulations! You've collected all the resources!");
+                    window.location.href = "index.html"; // Ana ekrana yönlendirme
+                    }, 500); // Küçük bir gecikme ekledim daha iyi kullanıcı deneyimi için
+                 
         }
 
         function draw() {
