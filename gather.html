@@ -46,7 +46,7 @@
         const resourceColors = { Wood: "brown", Stone: "gray", Iron: "silver", Herbs: "green" };
 
         // Player
-        const player = { x: 50, y: 50, size: 20, color: "blue", speed: 5 };
+        const player = { x: canvas.width / 2, y: canvas.height / 2, size: 20, color: "blue", speed: 5 };
 
         // Resources on the map
         const items = [];
@@ -62,18 +62,34 @@
             });
         }
 
-        // Movement
-        const keys = { ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
+        // Touch movement
+        let touchStartX = 0, touchStartY = 0;
 
-        window.addEventListener('keydown', (e) => keys[e.key] = true);
-        window.addEventListener('keyup', (e) => keys[e.key] = false);
+        canvas.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const dx = touch.clientX - touchStartX;
+            const dy = touch.clientY - touchStartY;
+
+            if (Math.abs(dx) > Math.abs(dy)) {
+                if (dx > 0 && player.x < canvas.width - player.size) player.x += player.speed;
+                else if (dx < 0 && player.x > 0) player.x -= player.speed;
+            } else {
+                if (dy > 0 && player.y < canvas.height - player.size) player.y += player.speed;
+                else if (dy < 0 && player.y > 0) player.y -= player.speed;
+            }
+
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+        });
 
         function update() {
-            if (keys.ArrowUp && player.y > 0) player.y -= player.speed;
-            if (keys.ArrowDown && player.y < canvas.height - player.size) player.y += player.speed;
-            if (keys.ArrowLeft && player.x > 0) player.x -= player.speed;
-            if (keys.ArrowRight && player.x < canvas.width - player.size) player.x += player.speed;
-
             items.forEach(item => {
                 if (!item.collected &&
                     player.x < item.x + item.size &&
