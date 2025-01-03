@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gathering ve Storage Sistemi</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+        .resource { display: inline-block; margin: 10px; padding: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Gathering ve Storage Sistemi</h1>
+    <div id="game-screen">
+        <h2>Gathering Alanı</h2>
+        <p>Burada malzeme toplayabilirsiniz:</p>
+        <div id="resources">
+            <div class="resource" onclick="gather('wood')">🪵 Odun</div>
+            <div class="resource" onclick="gather('iron')">⛏️ Demir</div>
+            <div class="resource" onclick="gather('leather')">🪡 Deri</div>
+            <div class="resource" onclick="gather('herb')">🌿 Bitki</div>
+        </div>
+        <button class="button" onclick="showStorage()">Depolamaya Git</button>
+    </div>
+
+    <div id="storage-screen" style="display: none;">
+        <h2>Depolama Alanı</h2>
+        <p>Topladığınız malzemeler:</p>
+        <ul id="storage-list"></ul>
+        <button class="button" onclick="showGathering()">Gathering Alanına Dön</button>
+    </div>
+
+    <script>
+        // Toplanan malzemeler
+        const storage = {
+            wood: 0,
+            iron: 0,
+            leather: 0,
+            herb: 0,
+        };
+
+        // Gathering malzemeleri toplama
+        function gather(resource) {
+            storage[resource]++;
+            alert(resource + " toplandı! Şimdi " + storage[resource] + " adet var.");
+        }
+
+        // Depolama ekranını göster
+        function showStorage() {
+            const storageList = document.getElementById("storage-list");
+            storageList.innerHTML = ""; // Temizle
+            for (const [resource, count] of Object.entries(storage)) {
+                const li = document.createElement("li");
+                li.textContent = `${resource}: ${count}`;
+                storageList.appendChild(li);
+            }
+            document.getElementById("game-screen").style.display = "none";
+            document.getElementById("storage-screen").style.display = "block";
+        }
+
+        // Gathering ekranına dön
+        function showGathering() {
+            document.getElementById("game-screen").style.display = "block";
+            document.getElementById("storage-screen").style.display = "none";
+        }
+    </script>
+</body>
+</html>
